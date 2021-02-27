@@ -10,6 +10,9 @@ const gmutes = new Keyv("sqlite://gmutes.sqlite", {table: "gmutes"})
 client.on("ready", ()  => {
   console.log(client.user.tag + "でログイン中")
 });
+
+
+
 client.on("message", async message => {
   if (message.author.bot) {
     return;
@@ -18,10 +21,11 @@ client.on("message", async message => {
     return;
   }
   if (message.content == prefix+"global_setup") {
-    if (!message.channel.permissionsFor(message.guild.me).has("MANAGE_WEBHOOKS")) {
-      message.channel.send("Webhookを作成する権限がありません。\nMANAGE_WEBHOOKS")
-      return;
-    }
+    if (!message.member.hasPermission('MANAGE_WEBHOOKS')) return message.channel.send('<:kiken:812497914168475678>権限がありません')
+//    if (!message.channel.permissionsFor(message.guild.me).has("MANAGE_WEBHOOKS")) {
+//      message.channel.send("Webhookを作成する権限がありません。\nMANAGE_WEBHOOKS")
+//      return;
+    
     message.channel.createWebhook('きのこグローバルチャット用webhook').then(webhook => {
       var webhookinfo = {
         "id": webhook.id,
@@ -128,19 +132,33 @@ client.on("message", message => {
       if (message.author.id === "695500134179536907") {
       admin = "👑";
       }
-      var check = "";
-      if (message.author.id === "695500134179536907") { 
+      var subadmin = "";
+      if (message.author.id === "702859797300772964||663196515384295425||614305573827117066||722717188666163220||767325957392039966") {
+      subadmin = "⚙";
+      }
+      var check = "🟢";
+      if (message.author.id === "695500134179536907||702859797300772964||663196515384295425||614305573827117066||722717188666163220||767325957392039966") { 
       check = "✅";
       }
+      var kiken = "";
+      if (message.author.id === "811703794202050600") { 
+      kiken = "⚠";
+      }
+//      var mark = "🟢";
+//      if (message.author.id === "702859797300772964") {
+//      mark = "👑";
+//      };
       const serverwebhook = new Discord.WebhookClient(webhookid, webhooktoken)
       if (message.channel.id == channelid) return;
       if (message.guild.id == guild.id) return;
       try {
-        serverwebhook.send(message.content, { username: message.author.tag + "(" + message.author.id + ") | " + message.guild.name + "(" + message.guild.id + ")" + "(" + admin + check + ")", avatarURL: `https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.png`, disableMentions: "all"})
+        serverwebhook.send(message.content, { username: message.author.tag + "(" + message.author.id + ") | " + message.guild.name + "(" + admin + subadmin + kiken + check + ")", avatarURL: `https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.png`, disableMentions: "all"})
       } catch (error) {
       }
+      message.react('805306364406530049')
+      message.react('812497965397573662')
     })
   }
 });
 
-client.login("")
+client.login("TOKEN")
