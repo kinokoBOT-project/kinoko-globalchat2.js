@@ -67,7 +67,7 @@ client.on("message", async message => {
         if (message.channel.id == sentchannelid) return;
         if (message.guild.id == guild.id) return;
         try {
-          new Discord.WebhookClient(webhookid, webhooktoken).send("<:join:805306364406530049>" + message.guild.name + "が、グローバルチャットに参加しました。いっぱい雑談しましょう！！", { username: "きのこグローバル全体チャット", disableMentions: "all"})
+          new Discord.WebhookClient(webhookid, webhooktoken).send("<:join:805306364406530049>" + message.guild.name + "(" + message.guild.id + ")" + "が、グローバルチャットに参加しました。いっぱい雑談しましょう！！", { username: "きのこグローバル全体チャット", disableMentions: "all"})
         } catch (error) {
 
         }
