@@ -112,21 +112,9 @@ client.on("message", message => {
       }
       var webhookid = webhook.id
       var webhooktoken = webhook.token
-      var admin = "";
+      var admin = "🟢";
       if (message.author.id === "695500134179536907") {
       admin = "👑";
-      }
-      var subadmin = "";
-      if (message.author.id === "702859797300772964||663196515384295425||614305573827117066||722717188666163220||767325957392039966") {
-      subadmin = "⚙";
-      }
-      var check = "🟢";
-      if (message.author.id === "695500134179536907||702859797300772964||663196515384295425||614305573827117066||722717188666163220||767325957392039966") { 
-      check = "✅";
-      }
-      var kiken = "";
-      if (message.author.id === "811703794202050600") { 
-      kiken = "⚠";
       }
 //      var mark = "🟢";
 //      if (message.author.id === "702859797300772964") {
@@ -136,7 +124,7 @@ client.on("message", message => {
       if (message.channel.id == channelid) return;
       if (message.guild.id == guild.id) return;
       try {
-        serverwebhook.send(message.content, { username: message.author.tag + "(" + message.author.id + ") | " + message.guild.name + "(" + admin + subadmin + kiken + check + ")", avatarURL: `https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.png`, disableMentions: "all"})
+        serverwebhook.send(message.content, { username: message.author.tag + "(" + message.author.id + ")(" + admin + ")" | @" + message.guild.name, avatarURL: `https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.png`, disableMentions: "all"})
       } catch (error) {
       }
       message.react('805306364406530049')
