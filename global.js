@@ -1,17 +1,13 @@
-const Discord = require("discord.js")
-const client = new Discord.Client()
-const fs = require("fs")
-const prefix = "k!"
-const Keyv = require("keyv")
-const gmutes = new Keyv("sqlite://gmutes.sqlite", {table: "gmutes"})
-
-
+const Discord = require("discord.js");
+const client = new Discord.Client();
+const fs = require("fs");
+const prefix = "k!";
+const Keyv = require("keyv");
+const gmutes = new Keyv("sqlite://gmutes.sqlite", { table: "gmutes" }); //sqlを作る
 
 client.on("ready", ()  => {
   console.log(client.user.tag + "でログイン中")
 });
-
-
 
 client.on("message", async message => {
   if (message.author.bot) {
@@ -84,7 +80,7 @@ client.on("message", message => {
   if (message.channel.type == "dm") {
     return;
   }
-  const gmute = (await gmutes.get(message.author.id)) || { score: 0, reason: 0 }
+  const gmute = (gmutes.get(message.author.id)) || { score: 0, reason: 0 }
   if (!gmute.score == 0) return;
   try {
     const guild_webhook = JSON.parse(fs.readFileSync(`globalchatfiles/${message.guild.id}/webhook.json`))
@@ -124,7 +120,7 @@ client.on("message", message => {
       if (message.channel.id == channelid) return;
       if (message.guild.id == guild.id) return;
       try {
-        serverwebhook.send(message.content, { username: message.author.tag + "(" + message.author.id + ")(" + admin + ")" | @" + message.guild.name, avatarURL: `https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.png`, disableMentions: "all"})
+        serverwebhook.send(message.content, { username: message.author.tag + "(" + message.author.id + ")(" + admin + ") | @" + message.guild.name, avatarURL: `https://cdn.discordapp.com/avatars/${message.author.id}/${message.author.avatar}.png`, disableMentions: "all"})
       } catch (error) {
       }
       message.react('805306364406530049')
